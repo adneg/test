@@ -374,7 +374,7 @@ func GetPercent(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	DB.Order("id desc").Where("Data BETWEEN ? AND ?", midnight, time.Now()).Find(&danes)
 
 	ilosc := len(danes)
-	var iloscP int
+	//	var iloscP int
 	if ilosc > 0 {
 		var mapa map[string]*PercentProdukt
 		mapa = make(map[string]*PercentProdukt)
@@ -389,11 +389,11 @@ func GetPercent(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 			//			percent = percent + element.ZZZ
 		}
 		for _, v := range mapa {
-			iloscP = iloscP + 1
+			//			iloscP = iloscP + 1
 
 			percent = percent + v.Sum
 		}
-		odp := int(math.Round(float64(percent / float32(iloscP))))
+		odp := int(math.Round(float64(percent)))
 		ret, _ := json.Marshal(odp)
 		w.Write(ret)
 	} else {
